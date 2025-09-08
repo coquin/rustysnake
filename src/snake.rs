@@ -1,13 +1,14 @@
+#[derive(PartialEq)]
 pub struct Snake {
-    length: u64,
+    length: u32,
 }
 
 impl Snake {
-    pub fn new() -> Snake {
-        Snake { length: 42 }
+    pub fn new(len: u32) -> Snake {
+        Snake { length: len }
     }
 
-    pub fn len(&self) -> u64 {
+    pub fn len(&self) -> u32 {
         self.length
     }
 }

@@ -1,7 +1,7 @@
 use rustysnake::snake::Snake;
 
 #[test]
-fn test_new() {
-    let s = Snake::new();
-    assert_eq!(s.len(), 100);
+fn test_eq() {
+    assert!(Snake::new(3) == Snake::new(3));
+    assert!(Snake::new(3) != Snake::new(4));
 }
