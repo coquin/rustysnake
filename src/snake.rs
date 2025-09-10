@@ -8,7 +8,15 @@ impl Snake {
         Snake { length: len }
     }
 
-    pub fn len(&self) -> u32 {
-        self.length
+    pub fn forward(&self) -> Snake {
+        Self::new(self.length)
+    }
+
+    pub fn left(&self) -> Snake {
+        Self::new(self.length)
+    }
+
+    pub fn right(&self) -> Snake {
+        Self::new(self.length)
     }
 }
