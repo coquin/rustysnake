@@ -12,7 +12,10 @@ fn test_forward() {
     let s1 = Snake::new(3, Direction::UP);
     let s2 = s1.forward();
 
-    assert!(s1 != s2)
+    assert!(s1 != s2);
+
+    let s3 = s2.forward();
+    assert!(s2 != s3);
 }
 
 #[test]

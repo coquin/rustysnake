@@ -6,10 +6,17 @@ pub enum Direction {
     RIGHT,
 }
 
+#[derive(PartialEq, Clone)]
+pub struct Position {
+    x: u32,
+    y: u32,
+}
+
 #[derive(PartialEq)]
 pub struct Snake {
     length: u32,
     direction: Direction,
+    position: Position,
 }
 
 impl Snake {
@@ -17,19 +24,28 @@ impl Snake {
         Snake {
             length: len,
             direction: dir,
+            position: Position { x: 5, y: 5 },
+        }
+    }
+
+    fn new2(len: u32, dir: Direction, pos: Position) -> Snake {
+        Snake {
+            length: len,
+            direction: dir,
+            position: pos,
         }
     }
 
     pub fn forward(&self) -> Snake {
-        Self::new(self.length, self.direction.clone())
+        Self::new2(self.length, self.direction.clone(), self.position.up())
     }
 
     pub fn left(&self) -> Snake {
-        Self::new(self.length, self.direction.left())
+        Self::new2(self.length, self.direction.left(), self.position.clone())
     }
 
     pub fn right(&self) -> Snake {
-        Self::new(self.length, self.direction.right())
+        Self::new2(self.length, self.direction.right(), self.position.clone())
     }
 }
 
@@ -49,6 +65,36 @@ impl Direction {
             Direction::UP => Direction::RIGHT,
             Direction::RIGHT => Direction::DOWN,
             Direction::DOWN => Direction::LEFT,
+        }
+    }
+}
+
+impl Position {
+    fn up(&self) -> Position {
+        Position {
+            x: self.x,
+            y: self.y - 1,
+        }
+    }
+
+    fn down(&self) -> Position {
+        Position {
+            x: self.x,
+            y: self.y + 1,
+        }
+    }
+
+    fn left(&self) -> Position {
+        Position {
+            x: self.x - 1,
+            y: self.y,
+        }
+    }
+
+    fn right(&self) -> Position {
+        Position {
+            x: self.x + 1,
+            y: self.y,
         }
     }
 }
