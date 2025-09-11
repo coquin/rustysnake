@@ -5,39 +5,79 @@ use rustysnake::snake::Snake;
 #[test]
 fn test_eq() {
     let s = Snake::new(3, Direction::UP, Position::new(1, 2));
-    assert!(s == Snake::new(3, Direction::UP, Position::new(1, 2)));
-    assert!(s != Snake::new(4, Direction::UP, Position::new(1, 2)));
-    assert!(s != Snake::new(3, Direction::DOWN, Position::new(1, 2)));
-    assert!(s != Snake::new(3, Direction::UP, Position::new(1, 1)));
+    assert_eq!(s, Snake::new(3, Direction::UP, Position::new(1, 2)));
+    assert_ne!(s, Snake::new(4, Direction::UP, Position::new(1, 2)));
+    assert_ne!(s, Snake::new(3, Direction::DOWN, Position::new(1, 2)));
+    assert_ne!(s, Snake::new(3, Direction::UP, Position::new(1, 1)));
 }
 
 #[test]
 fn test_forward() {
     let s1 = Snake::new(3, Direction::UP, Position::new(1, 2));
-    let s2 = s1.forward();
+    assert_eq!(
+        s1.forward(),
+        Snake::new(3, Direction::UP, Position::new(1, 1))
+    );
 
-    assert!(s1 != s2);
+    let s2 = Snake::new(3, Direction::DOWN, Position::new(1, 2));
+    assert_eq!(
+        s2.forward(),
+        Snake::new(3, Direction::DOWN, Position::new(1, 3))
+    );
 
-    let s3 = s2.forward();
-    assert!(s2 != s3);
+    let s3 = Snake::new(3, Direction::LEFT, Position::new(1, 2));
+    assert_eq!(
+        s3.forward(),
+        Snake::new(3, Direction::LEFT, Position::new(0, 2))
+    );
+
+    let s4 = Snake::new(3, Direction::RIGHT, Position::new(1, 2));
+    assert_eq!(
+        s4.forward(),
+        Snake::new(3, Direction::RIGHT, Position::new(2, 2))
+    );
 }
 
 #[test]
 fn test_left() {
     let s = Snake::new(3, Direction::UP, Position::new(1, 2));
 
-    assert!(Snake::new(3, Direction::LEFT, Position::new(1, 2)) == s.left());
-    assert!(Snake::new(3, Direction::DOWN, Position::new(1, 2)) == s.left().left());
-    assert!(Snake::new(3, Direction::RIGHT, Position::new(1, 2)) == s.left().left().left());
-    assert!(Snake::new(3, Direction::UP, Position::new(1, 2)) == s.left().left().left().left());
+    assert_eq!(
+        Snake::new(3, Direction::LEFT, Position::new(1, 2)),
+        s.left()
+    );
+    assert_eq!(
+        Snake::new(3, Direction::DOWN, Position::new(1, 2)),
+        s.left().left()
+    );
+    assert_eq!(
+        Snake::new(3, Direction::RIGHT, Position::new(1, 2)),
+        s.left().left().left()
+    );
+    assert_eq!(
+        Snake::new(3, Direction::UP, Position::new(1, 2)),
+        s.left().left().left().left()
+    );
 }
 
 #[test]
 fn test_right() {
     let s = Snake::new(3, Direction::UP, Position::new(1, 2));
 
-    assert!(Snake::new(3, Direction::RIGHT, Position::new(1, 2)) == s.right());
-    assert!(Snake::new(3, Direction::DOWN, Position::new(1, 2)) == s.right().right());
-    assert!(Snake::new(3, Direction::LEFT, Position::new(1, 2)) == s.right().right().right());
-    assert!(Snake::new(3, Direction::UP, Position::new(1, 2)) == s.right().right().right().right());
+    assert_eq!(
+        Snake::new(3, Direction::RIGHT, Position::new(1, 2)),
+        s.right()
+    );
+    assert_eq!(
+        Snake::new(3, Direction::DOWN, Position::new(1, 2)),
+        s.right().right()
+    );
+    assert_eq!(
+        Snake::new(3, Direction::LEFT, Position::new(1, 2)),
+        s.right().right().right()
+    );
+    assert_eq!(
+        Snake::new(3, Direction::UP, Position::new(1, 2)),
+        s.right().right().right().right()
+    );
 }

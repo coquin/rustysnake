@@ -1,4 +1,4 @@
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone, Debug)]
 pub enum Direction {
     UP,
     LEFT,
@@ -6,13 +6,13 @@ pub enum Direction {
     RIGHT,
 }
 
-#[derive(PartialEq, Clone)]
+#[derive(PartialEq, Clone, Debug)]
 pub struct Position {
     x: u32,
     y: u32,
 }
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug)]
 pub struct Snake {
     length: u32,
     direction: Direction,
@@ -29,7 +29,13 @@ impl Snake {
     }
 
     pub fn forward(&self) -> Snake {
-        Self::new(self.length, self.direction.clone(), self.position.up())
+        let new_position = match self.direction {
+            Direction::UP => self.position.up(),
+            Direction::DOWN => self.position.down(),
+            Direction::LEFT => self.position.left(),
+            Direction::RIGHT => self.position.right(),
+        };
+        Self::new(self.length, self.direction.clone(), new_position)
     }
 
     pub fn left(&self) -> Snake {
