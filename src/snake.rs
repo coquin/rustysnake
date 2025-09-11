@@ -20,15 +20,7 @@ pub struct Snake {
 }
 
 impl Snake {
-    pub fn new(len: u32, dir: Direction) -> Snake {
-        Snake {
-            length: len,
-            direction: dir,
-            position: Position { x: 5, y: 5 },
-        }
-    }
-
-    fn new2(len: u32, dir: Direction, pos: Position) -> Snake {
+    pub fn new(len: u32, dir: Direction, pos: Position) -> Snake {
         Snake {
             length: len,
             direction: dir,
@@ -37,15 +29,15 @@ impl Snake {
     }
 
     pub fn forward(&self) -> Snake {
-        Self::new2(self.length, self.direction.clone(), self.position.up())
+        Self::new(self.length, self.direction.clone(), self.position.up())
     }
 
     pub fn left(&self) -> Snake {
-        Self::new2(self.length, self.direction.left(), self.position.clone())
+        Self::new(self.length, self.direction.left(), self.position.clone())
     }
 
     pub fn right(&self) -> Snake {
-        Self::new2(self.length, self.direction.right(), self.position.clone())
+        Self::new(self.length, self.direction.right(), self.position.clone())
     }
 }
 
@@ -70,6 +62,10 @@ impl Direction {
 }
 
 impl Position {
+    pub fn new(x: u32, y: u32) -> Position {
+        Position { x, y }
+    }
+
     fn up(&self) -> Position {
         Position {
             x: self.x,
