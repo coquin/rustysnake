@@ -28,6 +28,20 @@ impl Snake {
         }
     }
 
+    pub fn new2(pos: Position, segments: Vec<Direction>) -> Result<Snake, String> {
+        let direction = match segments.get(0) {
+            Some(direction) => direction.clone(),
+            None => return Err("Segments cannot be empty".to_string()),
+        };
+        let snake = Snake {
+            length: segments.len() as u32,
+            direction: direction,
+            position: pos,
+        };
+
+        return Ok(snake);
+    }
+
     pub fn forward(&self) -> Snake {
         let new_position = match self.direction {
             Direction::UP => self.position.up(),

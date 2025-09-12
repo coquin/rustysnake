@@ -12,6 +12,23 @@ fn test_eq() {
 }
 
 #[test]
+fn test_new_snake_segments() {
+    let s = Snake::new2(
+        Position::new(1, 2),
+        vec![Direction::RIGHT, Direction::RIGHT, Direction::RIGHT],
+    )
+    .unwrap();
+    assert_eq!(s, Snake::new(3, Direction::RIGHT, Position::new(1, 2)));
+}
+
+#[test]
+fn test_should_return_error_when_segments_empty() {
+    let r = Snake::new2(Position::new(1, 2), vec![]);
+
+    assert!(r.is_err());
+}
+
+#[test]
 fn test_forward() {
     let s1 = Snake::new(3, Direction::UP, Position::new(1, 2));
     assert_eq!(
