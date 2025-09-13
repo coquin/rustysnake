@@ -29,17 +29,14 @@ impl Snake {
     }
 
     pub fn new2(pos: Position, segments: Vec<Direction>) -> Result<Snake, String> {
-        let direction = match segments.get(0) {
-            Some(direction) => direction.clone(),
-            None => return Err("Segments cannot be empty".to_string()),
-        };
-        let snake = Snake {
-            length: segments.len() as u32,
-            direction: direction,
-            position: pos,
-        };
-
-        return Ok(snake);
+        segments
+            .first()
+            .ok_or("Segments cannot be empty".to_string())
+            .map(|s| Snake {
+                length: segments.len() as u32,
+                direction: s.clone(),
+                position: pos,
+            })
     }
 
     pub fn forward(&self) -> Snake {
