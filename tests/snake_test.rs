@@ -12,6 +12,15 @@ fn test_eq() {
 }
 
 #[test]
+fn test_new() {
+    let s1 = Snake::new(3, Direction::UP, Position::new(1, 2));
+    assert_eq!(s1.positions(), vec![Position::new(1, 2), Position::new(1, 3), Position::new(1, 4)]);
+
+    let s2 = Snake::new(2, Direction::UP, Position::new(1, 2));
+    assert_eq!(s1.positions(), vec![Position::new(1, 2), Position::new(1, 3)]);
+}
+
+#[test]
 fn test_new_snake_segments() {
     let s = Snake::new2(
         Position::new(1, 2),

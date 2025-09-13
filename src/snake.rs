@@ -39,6 +39,10 @@ impl Snake {
             })
     }
 
+    pub fn positions(&self) -> Vec<Position> {
+        vec![self.position.clone(), self.position.down().clone(), self.position.clone().down().down()]
+    }
+
     pub fn forward(&self) -> Snake {
         let new_position = match self.direction {
             Direction::UP => self.position.up(),
