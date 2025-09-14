@@ -1,35 +1,17 @@
 use rustysnake::snake::Direction::{DOWN, LEFT, RIGHT, UP};
-use rustysnake::snake::Position as P;
 use rustysnake::snake::Snake;
 
 #[test]
 fn test_eq() {
-    let s = Snake::new(3, UP, P::new(3, 3));
-    assert_eq!(s, Snake::new(3, UP, P::new(3, 3)));
-    assert_ne!(s, Snake::new(4, UP, P::new(3, 3)));
-    assert_ne!(s, Snake::new(3, UP, P::new(2, 3)));
-    assert_ne!(s, Snake::new(3, UP, P::new(3, 2)));
-
-    assert_ne!(s, Snake::new(3, DOWN, P::new(3, 3)));
-    assert_ne!(s, Snake::new(3, RIGHT, P::new(3, 3)));
-    assert_ne!(s, Snake::new(3, LEFT, P::new(3, 3)));
-
-    assert_eq!(
-        Snake::new2(UP, vec![P::new(3, 3), P::new(3, 4), P::new(3, 5)]),
-        Snake::new2(UP, vec![P::new(3, 3), P::new(3, 4), P::new(3, 5)]),
-    );
-
-    assert_ne!(
-        Snake::new2(UP, vec![P::new(3, 3), P::new(3, 4), P::new(3, 5)]),
-        Snake::new2(DOWN, vec![P::new(3, 3), P::new(3, 4), P::new(3, 5)]),
-    );
-
-    assert_ne!(
-        Snake::new2(UP, vec![P::new(3, 3), P::new(3, 4), P::new(3, 5)]),
-        Snake::new2(UP, vec![P::new(3, 3), P::new(3, 4)]),
-    );
+    let s = Snake::new(UP, 3);
+    assert_eq!(s, Snake::new(UP, 3));
+    assert_ne!(s, Snake::new(UP, 4));
+    assert_ne!(s, Snake::new(DOWN, 3));
+    assert_ne!(s, Snake::new(LEFT, 3));
+    assert_ne!(s, Snake::new(RIGHT, 3));
 }
 
+/*
 #[test]
 fn test_new() {
     let actual1 = Snake::new(3, UP, P::new(3, 3));
@@ -81,7 +63,6 @@ fn test_forward() {
     assert_eq!(s4.forward(), Snake::new(3, RIGHT, P::new(4, 3)));
 }
 
-/*
 #[test]
 fn test_left() {
     let s = Snake::new(3, Direction::UP, Position::new(1, 2));

@@ -1,4 +1,4 @@
-#[derive(PartialEq, Clone, Debug)]
+#[derive(PartialEq, Clone, Copy, Debug)]
 pub enum Direction {
     UP,
     LEFT,
@@ -6,42 +6,29 @@ pub enum Direction {
     RIGHT,
 }
 
+/*
 #[derive(PartialEq, Clone, Debug)]
 pub struct Position {
     x: u32,
     y: u32,
 }
+*/
 
 #[derive(PartialEq, Debug)]
 pub struct Snake {
     length: u32,
     direction: Direction,
-    position: Position,
-    positions: Vec<Position>,
 }
 
 impl Snake {
-    pub fn new(len: u32, dir: Direction, pos: Position) -> Snake {
-        let mut positions = Vec::new();
-        let mut cur_pos = pos.clone();
-
-        for _ in 1..=len {
-            positions.push(cur_pos.clone());
-            cur_pos = match dir {
-                Direction::UP => cur_pos.down(),
-                Direction::LEFT => cur_pos.right(),
-                Direction::DOWN => cur_pos.up(),
-                Direction::RIGHT => cur_pos.left(),
-            }
-        }
+    pub fn new(dir: Direction, len: u32) -> Snake {
         Snake {
-            length: len,
             direction: dir,
-            position: pos,
-            positions: positions,
+            length: len,
         }
     }
 
+    /*
     pub fn new2(dir: Direction, positions: Vec<Position>) -> Result<Snake, String> {
         positions
             .first()
@@ -53,17 +40,20 @@ impl Snake {
                 positions: positions.clone(),
             })
     }
+    */
 
     pub fn forward(&self) -> Snake {
-        let new_position = match self.direction {
-            Direction::UP => self.position.up(),
-            Direction::DOWN => self.position.down(),
-            Direction::LEFT => self.position.left(),
-            Direction::RIGHT => self.position.right(),
-        };
-        Self::new(self.length, self.direction.clone(), new_position)
+        // let new_position = match self.direction {
+        //     Direction::UP => self.position.up(),
+        //     Direction::DOWN => self.position.down(),
+        //     Direction::LEFT => self.position.left(),
+        //     Direction::RIGHT => self.position.right(),
+        // };
+        // Self::new(self.length, self.direction.clone(), new_position)
+        Self::new(self.direction, self.length)
     }
 
+    /*
     pub fn left(&self) -> Snake {
         Self::new(self.length, self.direction.left(), self.position.clone())
     }
@@ -71,8 +61,10 @@ impl Snake {
     pub fn right(&self) -> Snake {
         Self::new(self.length, self.direction.right(), self.position.clone())
     }
+    */
 }
 
+/*
 impl Direction {
     fn left(&self) -> Direction {
         match self {
@@ -92,7 +84,9 @@ impl Direction {
         }
     }
 }
+*/
 
+/*
 impl Position {
     pub fn new(x: u32, y: u32) -> Position {
         Position { x, y }
@@ -126,3 +120,4 @@ impl Position {
         }
     }
 }
+*/
