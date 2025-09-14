@@ -25,7 +25,7 @@ impl Snake {
         let mut positions = Vec::new();
         let mut cur_pos = pos.clone();
 
-        for i in 1..=len {
+        for _ in 1..=len {
             positions.push(cur_pos.clone());
             cur_pos = match dir {
                 Direction::UP => cur_pos.down(),
@@ -52,10 +52,6 @@ impl Snake {
                 position: p.clone(),
                 positions: positions.clone(),
             })
-    }
-
-    pub fn len(&self) -> u32 {
-        self.length
     }
 
     pub fn forward(&self) -> Snake {
