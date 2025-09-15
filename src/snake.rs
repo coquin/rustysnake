@@ -6,6 +6,13 @@ pub enum Direction {
     RIGHT,
 }
 
+#[derive(PartialEq, Clone, Debug)]
+pub enum Move {
+    FORWARD,
+    LEFT,
+    RIGHT,
+}
+
 /*
 #[derive(PartialEq, Clone, Debug)]
 pub struct Position {
@@ -16,8 +23,9 @@ pub struct Position {
 
 #[derive(PartialEq, Debug)]
 pub struct Snake {
-    length: u32,
     direction: Direction,
+    length: u32,
+    moves: Vec<Move>,
 }
 
 impl Snake {
@@ -25,6 +33,15 @@ impl Snake {
         Snake {
             direction: dir,
             length: len,
+            moves: Vec::new(),
+        }
+    }
+
+    pub fn restore(dir: Direction, len: u32, moves: Vec<Move>) -> Snake {
+        Snake {
+            direction: dir,
+            length: len,
+            moves: moves,
         }
     }
 
@@ -43,28 +60,32 @@ impl Snake {
     */
 
     pub fn forward(&self) -> Snake {
-        // let new_position = match self.direction {
-        //     Direction::UP => self.position.up(),
-        //     Direction::DOWN => self.position.down(),
-        //     Direction::LEFT => self.position.left(),
-        //     Direction::RIGHT => self.position.right(),
-        // };
-        // Self::new(self.length, self.direction.clone(), new_position)
-        Self::new(self.direction, self.length)
+        let mut moves = self.moves.clone();
+        moves.push(Move::FORWARD);
+        Snake {
+            direction: self.direction,
+            length: self.length,
+            moves: moves,
+        }
+    }
+
+    pub fn left(&self) -> Snake {
+        let mut moves = self.moves.clone();
+        moves.push(Move::LEFT);
+        Snake {
+            direction: self.direction.left(),
+            length: self.length,
+            moves: moves,
+        }
     }
 
     /*
-    pub fn left(&self) -> Snake {
-        Self::new(self.length, self.direction.left(), self.position.clone())
-    }
-
     pub fn right(&self) -> Snake {
         Self::new(self.length, self.direction.right(), self.position.clone())
     }
     */
 }
 
-/*
 impl Direction {
     fn left(&self) -> Direction {
         match self {
@@ -75,6 +96,7 @@ impl Direction {
         }
     }
 
+    /*
     fn right(&self) -> Direction {
         match self {
             Direction::LEFT => Direction::UP,
@@ -82,9 +104,8 @@ impl Direction {
             Direction::RIGHT => Direction::DOWN,
             Direction::DOWN => Direction::LEFT,
         }
-    }
+    }*/
 }
-*/
 
 /*
 impl Position {

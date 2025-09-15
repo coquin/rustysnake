@@ -1,4 +1,5 @@
 use rustysnake::snake::Direction::{DOWN, LEFT, RIGHT, UP};
+use rustysnake::snake::Move;
 use rustysnake::snake::Snake;
 
 #[test]
@@ -9,6 +10,50 @@ fn test_eq() {
     assert_ne!(s, Snake::new(DOWN, 3));
     assert_ne!(s, Snake::new(LEFT, 3));
     assert_ne!(s, Snake::new(RIGHT, 3));
+}
+
+/*
+#[test]
+fn test_restore() {
+    assert_eq!(Snake::new(UP, 3), Snake::restore(3, vec![UP]));
+    assert_eq!(Snake::new(DOWN, 3), Snake::restore(3, vec![DOWN]));
+    assert_eq!(Snake::new(LEFT, 3), Snake::restore(3, vec![LEFT]));
+    assert_eq!(Snake::new(RIGHT, 3), Snake::restore(3, vec![RIGHT]));
+}
+*/
+
+#[test]
+fn test_forward() {
+    let s = Snake::new(UP, 3);
+    assert_ne!(s, s.forward());
+    assert_eq!(Snake::restore(UP, 3, vec![Move::FORWARD]), s.forward());
+
+    let s1 = Snake::new(LEFT, 3);
+    assert_eq!(Snake::restore(LEFT, 3, vec![Move::FORWARD]), s1.forward());
+}
+
+// *
+// ╔═╗
+// ║ ║
+// ╚═╝
+#[test]
+fn test_left() {
+    // *
+    // ║
+    // ║
+    let s = Snake::new(UP, 3);
+
+    // *╗
+    //  ║
+    let s_left = s.left();
+    assert_eq!(Snake::restore(LEFT, 3, vec![Move::LEFT]), s_left);
+
+    // *═╗
+    let s_left_forward = s_left.forward();
+    assert_eq!(
+        Snake::restore(LEFT, 3, vec![Move::LEFT, Move::FORWARD]),
+        s_left_forward,
+    );
 }
 
 /*
