@@ -22,38 +22,70 @@ fn test_restore() {
 }
 */
 
-#[test]
-fn test_forward() {
-    let s = Snake::new(UP, 3);
-    assert_ne!(s, s.forward());
-    assert_eq!(Snake::restore(UP, 3, vec![Move::FORWARD]), s.forward());
-
-    let s1 = Snake::new(LEFT, 3);
-    assert_eq!(Snake::restore(LEFT, 3, vec![Move::FORWARD]), s1.forward());
-}
-
 // *
 // ╔═╗
 // ║ ║
 // ╚═╝
+
+//          *
+// *        ║
+// ║   =>   ║
+// ║
 #[test]
-fn test_left() {
-    // *
-    // ║
+fn test_up_moves_forward() {
+    let s = Snake::new(UP, 3);
+    let actual = s.forward();
+    let expected = Snake::restore(UP, 3, vec![Move::FORWARD]);
+
+    assert_eq!(expected, actual);
+}
+
+// v           v
+// *══   =>   *══
+#[test]
+fn test_left_moves_forward() {
+    let s = Snake::new(LEFT, 3);
+    let actual = s.forward();
+    let expected = Snake::restore(LEFT, 3, vec![Move::FORWARD]);
+
+    assert_eq!(expected, actual);
+}
+
+// *        *╗
+// ║   =>    ║
+// ║
+#[test]
+fn test_up_moves_left() {
+    let s = Snake::new(UP, 3);
+    let actual = s.left();
+    let expected = Snake::restore(LEFT, 3, vec![Move::LEFT]);
+
+    assert_eq!(expected, actual);
+}
+
+// *        *═╗
+// ║   =>
+// ║
+#[test]
+fn test_up_moves_left_and_then_forward() {
     // ║
     let s = Snake::new(UP, 3);
+    let actual = s.left().forward();
+    let expected = Snake::restore(LEFT, 3, vec![Move::LEFT, Move::FORWARD]);
 
-    // *╗
-    //  ║
-    let s_left = s.left();
-    assert_eq!(Snake::restore(LEFT, 3, vec![Move::LEFT]), s_left);
+    assert_eq!(expected, actual);
+}
 
-    // *═╗
-    let s_left_forward = s_left.forward();
-    assert_eq!(
-        Snake::restore(LEFT, 3, vec![Move::LEFT, Move::FORWARD]),
-        s_left_forward,
-    );
+// *        *══
+// ║   =>
+// ║
+#[test]
+fn test_up_moves_left_and_then_forward_and_then_forward() {
+    let s = Snake::new(UP, 3);
+    let actual = s.left().forward().forward();
+    let expected = Snake::restore(LEFT, 3, vec![Move::LEFT, Move::FORWARD, Move::FORWARD]);
+
+    assert_eq!(expected, actual);
 }
 
 /*
