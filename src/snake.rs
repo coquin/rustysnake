@@ -6,13 +6,6 @@ pub enum Direction {
     RIGHT,
 }
 
-#[derive(PartialEq, Clone, Debug)]
-pub enum Move {
-    FORWARD,
-    LEFT,
-    RIGHT,
-}
-
 /*
 #[derive(PartialEq, Clone, Debug)]
 pub struct Position {
@@ -23,25 +16,19 @@ pub struct Position {
 
 #[derive(PartialEq, Debug)]
 pub struct Snake {
-    direction: Direction,
-    length: u32,
-    moves: Vec<Move>,
+    segments: Vec<Direction>,
 }
 
 impl Snake {
     pub fn new(dir: Direction, len: u32) -> Snake {
         Snake {
-            direction: dir,
-            length: len,
-            moves: Vec::new(),
+            segments: Vec::new(),
         }
     }
 
-    pub fn restore(dir: Direction, len: u32, moves: Vec<Move>) -> Snake {
+    pub fn restore(dirs: Vec<Direction>) -> Snake {
         Snake {
-            direction: dir,
-            length: len,
-            moves: moves,
+            segments: dirs,
         }
     }
 
@@ -60,22 +47,14 @@ impl Snake {
     */
 
     pub fn forward(&self) -> Snake {
-        let mut moves = self.moves.clone();
-        moves.push(Move::FORWARD);
         Snake {
-            direction: self.direction,
-            length: self.length,
-            moves: moves,
+            segments: self.segments.clone(),
         }
     }
 
     pub fn left(&self) -> Snake {
-        let mut moves = self.moves.clone();
-        moves.push(Move::LEFT);
         Snake {
-            direction: self.direction.left(),
-            length: self.length,
-            moves: moves,
+            segments: self.segments.clone(),
         }
     }
 

@@ -1,5 +1,4 @@
 use rustysnake::snake::Direction::{DOWN, LEFT, RIGHT, UP};
-use rustysnake::snake::Move;
 use rustysnake::snake::Snake;
 
 #[test]
@@ -12,15 +11,13 @@ fn test_eq() {
     assert_ne!(s, Snake::new(RIGHT, 3));
 }
 
-/*
 #[test]
 fn test_restore() {
-    assert_eq!(Snake::new(UP, 3), Snake::restore(3, vec![UP]));
-    assert_eq!(Snake::new(DOWN, 3), Snake::restore(3, vec![DOWN]));
-    assert_eq!(Snake::new(LEFT, 3), Snake::restore(3, vec![LEFT]));
-    assert_eq!(Snake::new(RIGHT, 3), Snake::restore(3, vec![RIGHT]));
+    assert_eq!(Snake::new(UP, 3), Snake::restore(vec![UP, UP, UP]));
+    assert_eq!(Snake::new(DOWN, 3), Snake::restore(vec![DOWN, DOWN, DOWN]));
+    assert_eq!(Snake::new(LEFT, 3), Snake::restore(vec![LEFT, LEFT, LEFT]));
+    assert_eq!(Snake::new(RIGHT, 3), Snake::restore(vec![RIGHT, RIGHT, RIGHT]));
 }
-*/
 
 // *
 // ╔═╗
@@ -35,7 +32,7 @@ fn test_restore() {
 fn test_up_moves_forward() {
     let s = Snake::new(UP, 3);
     let actual = s.forward();
-    let expected = Snake::restore(UP, 3, vec![Move::FORWARD]);
+    let expected = Snake::restore(vec![UP, UP, UP]);
 
     assert_ne!(s, actual);
     assert_eq!(expected, actual);
@@ -47,7 +44,7 @@ fn test_up_moves_forward() {
 fn test_left_moves_forward() {
     let s = Snake::new(LEFT, 3);
     let actual = s.forward();
-    let expected = Snake::restore(LEFT, 3, vec![Move::FORWARD]);
+    let expected = Snake::restore(vec![LEFT, LEFT, LEFT]);
 
     assert_ne!(s, actual);
     assert_eq!(expected, actual);
@@ -60,7 +57,7 @@ fn test_left_moves_forward() {
 fn test_up_moves_left() {
     let s = Snake::new(UP, 3);
     let actual = s.left();
-    let expected = Snake::restore(LEFT, 3, vec![Move::LEFT]);
+    let expected = Snake::restore(vec![LEFT, UP, UP]);
 
     assert_eq!(expected, actual);
 }
@@ -69,9 +66,9 @@ fn test_up_moves_left() {
 //  ║    =>
 #[test]
 fn test_up_moves_left_and_then_forward() {
-    let s = Snake::restore(LEFT, 3, vec![Move::LEFT]);
+    let s = Snake::restore(vec![LEFT, UP, UP]);
     let actual = s.forward();
-    let expected = Snake::restore(LEFT, 3, vec![Move::LEFT, Move::FORWARD]);
+    let expected = Snake::restore(vec![LEFT, LEFT, UP]);
 
     assert_eq!(expected, actual);
 }
@@ -79,9 +76,9 @@ fn test_up_moves_left_and_then_forward() {
 // *═╗   =>   *══
 #[test]
 fn test_up_moves_left_and_then_forward_and_then_forward() {
-    let s = Snake::restore(LEFT, 3, vec![Move::LEFT, Move::FORWARD]);
+    let s = Snake::restore(vec![LEFT, LEFT, UP]);
     let actual = s.forward();
-    let expected = Snake::restore(LEFT, 3, vec![Move::LEFT, Move::FORWARD, Move::FORWARD]);
+    let expected = Snake::restore(vec![LEFT, LEFT, LEFT]);
 
     assert_eq!(expected, actual);
 }
