@@ -27,9 +27,7 @@ impl Snake {
     }
 
     pub fn restore(dirs: Vec<Direction>) -> Snake {
-        Snake {
-            segments: dirs,
-        }
+        Snake { segments: dirs }
     }
 
     /*

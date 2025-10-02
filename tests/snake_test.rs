@@ -16,7 +16,10 @@ fn test_restore() {
     assert_eq!(Snake::new(UP, 3), Snake::restore(vec![UP, UP, UP]));
     assert_eq!(Snake::new(DOWN, 3), Snake::restore(vec![DOWN, DOWN, DOWN]));
     assert_eq!(Snake::new(LEFT, 3), Snake::restore(vec![LEFT, LEFT, LEFT]));
-    assert_eq!(Snake::new(RIGHT, 3), Snake::restore(vec![RIGHT, RIGHT, RIGHT]));
+    assert_eq!(
+        Snake::new(RIGHT, 3),
+        Snake::restore(vec![RIGHT, RIGHT, RIGHT])
+    );
 }
 
 // *
